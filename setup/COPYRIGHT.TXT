@@ -1,0 +1,3 @@
+(C) 2010 ACME Inc.
+
+Here should be copyright and licence information that should be installed with your product.
