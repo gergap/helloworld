@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <hellolib.h>
 
+/** Main application entry point.
+ * Just to have same comments in the doxygen API.
+ * @param argc number of arguments
+ * @param argv argument array
+ * @return Returns the application exit code.
+ */
 int main(int argc, char* argv[])
 {
     int a, b, res;
