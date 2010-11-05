@@ -58,13 +58,23 @@ IF(WIN32)
   # There is a bug in NSIS that does not handle full
   # unix paths properly. Make sure there is at least
   # one set of four (4) backslashes.
+  # A branding image that will be displayed on the top bar inside the installer. 
   SET(CPACK_PACKAGE_ICON                "${CMAKE_CURRENT_SOURCE_DIR}\\\\..\\\\setup\\\\hello.ico")
+  # The icon file (.ico) for the generated install program.
+  SET(CPACK_NSIS_MUI_ICON               "${CMAKE_CURRENT_SOURCE_DIR}\\\\..\\\\setup\\\\install.ico")
+  # The icon file (.ico) for the generated uninstall program.
+  SET(CPACK_NSIS_MUI_UNIICON            "${CMAKE_CURRENT_SOURCE_DIR}\\\\..\\\\setup\\\\uninstall.ico")
+  # Set the icon used for the Windows "Add or Remove Programs" tool. 
   SET(CPACK_NSIS_INSTALLED_ICON_NAME    "bin\\\\helloworld.exe")
   # displayname is used for the installer and as start menu folder.
-  # how can we change the start menu to ACME\HelloWorld???
+  # TODO: how can we change the start menu to ACME\HelloWorld???
   SET(CPACK_NSIS_DISPLAY_NAME           "Hello World")
+  # Adds link to registry. URI. 
   SET(CPACK_NSIS_HELP_LINK              "http://doc.acme.com")
+  # Adds link to registry and the vendor in add/remove programs'
+  # "Click here for support information" in program entry links here. 
   SET(CPACK_NSIS_URL_INFO_ABOUT         "http://www.acme.com")
+  # Adds link to add/remove programs' "Click here for support information" in program entry. 
   SET(CPACK_NSIS_CONTACT                "support@acme.com")
 ELSE(WIN32)
   SET(CPACK_STRIP_FILES                 "bin/helloworld")
