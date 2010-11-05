@@ -4,7 +4,7 @@ SET(PRODUCT_VERSION_MAJOR 1)
 SET(PRODUCT_VERSION_MINOR 2)
 SET(PRODUCT_VERSION_PATCH 3)
 
-SUBDIRS(hellolib)
+ADD_SUBDIRECTORY(hellolib)
 
 INCLUDE_DIRECTORIES(hellolib)
 
@@ -27,6 +27,10 @@ INSTALL(TARGETS helloworld
 FIND_PACKAGE(Doxygen)
 IF(DOXYGEN_FOUND)
   ADD_CUSTOM_TARGET(doxygen ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doc/Doxyfile)
+  INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html
+        DESTINATION doc COMPONENT Documentation
+  )
+  ADD_DEPENDENCIES(helloworld doxygen)
 ENDIF(DOXYGEN_FOUND)
 	
 # Packaging
@@ -68,7 +72,7 @@ ELSE(WIN32)
   SET(CPACK_DEBIAN_PACKAGE_MAINTAINER   "ACME Inc.")
 ENDIF(WIN32)
 # create start menu entries for executables
-SET(CPACK_PACKAGE_EXECUTABLES           "helloworld;Hello World")
+SET(CPACK_PACKAGE_EXECUTABLES           "helloworld" "Hello World App")
 INCLUDE(CPack)
 
 # Configure Tools

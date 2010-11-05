@@ -20,7 +20,7 @@ cd bldVS
 IF ERRORLEVEL 1 GOTO Error
 
 REM The default generator create VS projects
-cmake ..\src
+cmake -DCMAKE_INSTALL_PREFIX=..\dist ..\src
 IF ERRORLEVEL 1 GOTO Error
 
 cd ..
