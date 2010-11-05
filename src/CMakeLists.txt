@@ -78,7 +78,7 @@ INCLUDE(CPack)
 
 # Configure Tools
 IF(WIN32)
-  SET(ENV{HOME} "/c/Users/gergap")
+  # TODO: git does not work if it cannot find it's HOME variable and the SSH public key
   SET(GITCOMMAND "$ENV{PROGRAMFILES}\\Git\\bin\\git.exe")
 ENDIF(WIN32)
 
