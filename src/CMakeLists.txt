@@ -26,9 +26,10 @@ INSTALL(TARGETS helloworld
 # Generate Doxygen API Docu
 FIND_PACKAGE(Doxygen)
 IF(DOXYGEN_FOUND)
-  ADD_CUSTOM_TARGET(doxygen ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doc/Doxyfile)
+  ADD_CUSTOM_TARGET(doxygen ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../doc/Doxyfile 
+      COMMENT "Generating Doxygen API Documentation")
   INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html
-        DESTINATION doc COMPONENT Documentation
+      DESTINATION doc COMPONENT Documentation
   )
   ADD_DEPENDENCIES(helloworld doxygen)
 ENDIF(DOXYGEN_FOUND)
