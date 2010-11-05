@@ -4,6 +4,9 @@ SET(PRODUCT_VERSION_MAJOR 1)
 SET(PRODUCT_VERSION_MINOR 2)
 SET(PRODUCT_VERSION_PATCH 3)
 
+# product options
+OPTION(BUILD_WITH_COVERAGE "Build with coverage analysis support" OFF)
+
 ADD_SUBDIRECTORY(hellolib)
 
 INCLUDE_DIRECTORIES(hellolib)
@@ -91,12 +94,14 @@ ENDIF()
 INCLUDE(CTest)
 IF(BUILD_TESTING)
 
-# enable coverage analysis using GCC and GCOV
-IF (CMAKE_COMPILER_IS_GNUCC)
-    SET(CMAKE_C_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-    SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
-    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage -lgcov")
-ENDIF()
+IF(BUILD_WITH_COVERAGE)
+    # enable coverage analysis using GCC and GCOV
+    IF (CMAKE_COMPILER_IS_GNUCC)
+        SET(CMAKE_C_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+        SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+        SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage -lgcov")
+    ENDIF()
+ENDIF(BUILD_WITH_COVERAGE)
 
 # ADD_TEST(<TestName> <Executable> [<Arguments...>]
 ADD_TEST(SimpleTest ${EXECUTABLE_OUTPUT_PATH}/helloworld 5 3)
@@ -105,7 +110,7 @@ SET_TESTS_PROPERTIES(SimpleTest PROPERTIES PASS_REGULAR_EXPRESSION "= 15")
 ADD_TEST(NegativeTest ${EXECUTABLE_OUTPUT_PATH}/helloworld -5 3)
 SET_TESTS_PROPERTIES(NegativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= -15")
 
-ADD_TEST(DoubleNagativeTest ${EXECUTABLE_OUTPUT_PATH}/helloworld -5 -3)
-SET_TESTS_PROPERTIES(DoubleNagativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= 15")   
+ADD_TEST(DoubleNegativeTest ${EXECUTABLE_OUTPUT_PATH}/helloworld -5 -3)
+SET_TESTS_PROPERTIES(DoubleNegativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= 15")   
 
 ENDIF(BUILD_TESTING)
