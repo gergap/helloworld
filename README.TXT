@@ -47,8 +47,6 @@ mkdir bld
 cd bld
 # create a makefile
 cmake -DBUILD_WITH_COVERAGE=on ../src
-# build the application
-make
 # execute coverage analysis
 make lcov
 # view results in your favorite browser (konqueror, firefox, or what ever you prefer)
