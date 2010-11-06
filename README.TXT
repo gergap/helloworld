@@ -30,6 +30,30 @@ make test
 # create setups
 make package
 
+Coverage Analysis using GCOV and LCOV
+-------------------------------------
+
+The generated Makefile contains a custom build target "lcov" which executes the
+unit tests and generates the coverage report using lcov.
+You need to build the application with coverage option turned on so that lcov works.
+
+Requirements:
+* Linux and GCC compiler
+* GCOV
+* LCOV
+
+# create a build folder for out-of-source build
+mkdir bld
+cd bld
+# create a makefile
+cmake -DBUILD_WITH_COVERAGE=on ../src
+# build the application
+make
+# execute coverage analysis
+make lcov
+# view results in your favorite browser (konqueror, firefox, or what ever you prefer)
+konqueror coverage/index.html
+
 For Nightly builds
 ------------------
 

@@ -1,0 +1,20 @@
+#!/bin/bash
+# This script test if the give compiler is a symlink to ccache
+# Returns 1 if it's ccache, 0 otherwise.
+# Author: Gerhard Gappmeier, ascolab GmbH
+
+target=`readlink $1`
+if [ $? -eq 0 ]; then
+    filename=`basename $target`
+    if [ "$filename" == "ccache" ]; then
+        echo "$1 is a link to ccache"
+        echo "Coverage analysis works only without ccache."
+        echo "Use 'export CC=/path/to/gcc' to set the path to your real compiler."
+        exit 1
+    fi
+else
+    echo "Not a symlink"
+fi
+
+exit 0
+

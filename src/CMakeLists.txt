@@ -105,6 +105,10 @@ INCLUDE(CTest)
 IF(BUILD_TESTING)
 
 IF(BUILD_WITH_COVERAGE)
+    ADD_CUSTOM_COMMAND(TARGET helloworld PRE_BUILD
+        COMMAND ${CMAKE_SOURCE_DIR}/../scripts/test4ccache ${CMAKE_C_COMPILER}
+        COMMENT "Testing for ccache"
+        )
     # enable coverage analysis using GCC and GCOV
     IF (CMAKE_COMPILER_IS_GNUCC)
         SET(CMAKE_C_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
@@ -122,5 +126,32 @@ SET_TESTS_PROPERTIES(NegativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= -15")
 
 ADD_TEST(DoubleNegativeTest ${EXECUTABLE_OUTPUT_PATH}/helloworld -5 -3)
 SET_TESTS_PROPERTIES(DoubleNegativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= 15")   
+
+# lcov target
+ADD_CUSTOM_TARGET(lcov)
+ADD_CUSTOM_COMMAND(TARGET lcov
+    COMMAND mkdir -p coverage
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+ADD_CUSTOM_COMMAND(TARGET lcov
+    COMMAND lcov --directory . --zerocounters
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+ADD_CUSTOM_COMMAND(TARGET lcov
+    COMMAND make test
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+ADD_CUSTOM_COMMAND(TARGET lcov
+    COMMAND lcov --directory . --capture --output-file ./coverage/stap.info
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+ADD_CUSTOM_COMMAND(TARGET lcov
+    COMMAND genhtml -o ./coverage ./coverage/stap.info
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+ADD_CUSTOM_COMMAND(TARGET lcov
+    COMMAND echo "Open coverage/index.html to view the coverage analysis results."
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
 
 ENDIF(BUILD_TESTING)
