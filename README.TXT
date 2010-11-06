@@ -1,6 +1,6 @@
 This is a sample project to demonstrate the usage of CMake, CTest and CPack.
 ============================================================================
-Author: Gerhard Gapmeier, ascolab GmbH
+Copyright (C) 2010 Gerhard Gappmeier, ascolab GmbH
 
 
 Quick Start
@@ -55,3 +55,4 @@ make package
 Requirements:
 * Windows: NSIS must be installed
 * Linux: For creating RPMs the rpm utiles must be installed.
+
