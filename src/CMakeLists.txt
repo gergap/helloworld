@@ -118,41 +118,17 @@ IF(BUILD_WITH_COVERAGE)
 ENDIF(BUILD_WITH_COVERAGE)
 
 # ADD_TEST(<TestName> <Executable> [<Arguments...>]
-ADD_TEST(SimpleTest ${EXECUTABLE_OUTPUT_PATH}/helloworld 5 3)
+ADD_TEST(SimpleTest ${CMAKE_CURRENT_BINARY_DIR}/helloworld 5 3)
 SET_TESTS_PROPERTIES(SimpleTest PROPERTIES PASS_REGULAR_EXPRESSION "= 15")
 
-ADD_TEST(NegativeTest ${EXECUTABLE_OUTPUT_PATH}/helloworld -5 3)
+ADD_TEST(NegativeTest ${CMAKE_CURRENT_BINARY_DIR}/helloworld -5 3)
 SET_TESTS_PROPERTIES(NegativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= -15")
 
-ADD_TEST(DoubleNegativeTest ${EXECUTABLE_OUTPUT_PATH}/helloworld -5 -3)
+ADD_TEST(DoubleNegativeTest ${CMAKE_CURRENT_BINARY_DIR}/helloworld -5 -3)
 SET_TESTS_PROPERTIES(DoubleNegativeTest PROPERTIES PASS_REGULAR_EXPRESSION "= 15")   
 
-# lcov target
-ADD_CUSTOM_TARGET(lcov)
-ADD_CUSTOM_COMMAND(TARGET lcov
-    COMMAND mkdir -p coverage
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
-ADD_CUSTOM_COMMAND(TARGET lcov
-    COMMAND lcov --directory . --zerocounters
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
-ADD_CUSTOM_COMMAND(TARGET lcov
-    COMMAND make test
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
-ADD_CUSTOM_COMMAND(TARGET lcov
-    COMMAND lcov --directory . --capture --output-file ./coverage/stap.info
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
-ADD_CUSTOM_COMMAND(TARGET lcov
-    COMMAND genhtml -o ./coverage ./coverage/stap.info
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
-ADD_CUSTOM_COMMAND(TARGET lcov
-    COMMAND echo "Open ${CMAKE_BINARY_DIR}/coverage/index.html to view the coverage analysis results."
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-    )
-ADD_DEPENDENCIES(lcov helloworld)
+# add lcov target
+include(${CMAKE_SOURCE_DIR}/cmake/lcov.cmake)
+#ADD_DEPENDENCIES(lcov helloworld)
 
 ENDIF(BUILD_TESTING)
