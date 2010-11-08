@@ -9,11 +9,13 @@ Quick Start
 This folder contains some convenience batch files.
 
 Windows: Execute these batch files from the Visual Studio Command Prompt.
+* env.bat: Environment configuration. Edit this variable to fit you environment.
 * build.bat: Automatic product generation including test and packaging
 * createVSProject.bat: Create VS projects for developing
 
 Linux:
 * build.sh: Automatic product generation including test and packaging
+* coverageTest.sh: Executes the coverage test and generates lcov output.
 
 Manual Build instructions
 -------------------------

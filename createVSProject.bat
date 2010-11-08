@@ -2,9 +2,8 @@
 REM Windows batch file for creating Visual Studio projects.
 REM This is used for developers, not for product generation.
 
-REM Typically the tools are not in the windows search path so we configure that here.
-REM Change this to your needs.
-SET PATH="%PROGRAMFILES%\CMake 2.9\bin";%PATH%
+REM Load environment settings from env.bat
+CALL env.bat
 
 REM DON'T MODIFY BELOW THIS LINE
 

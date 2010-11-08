@@ -4,9 +4,8 @@ REM Be sure to start the from a command line which is configured for your Visual
 REM Use Start->Programs->Microsoft Visual Studio 2008->Visual Studio Tools->Visual Studio 2008 Command Prompt
 REM to open the command prompt.
 
-REM Typically the tools are not in the windows search path so we configure that here.
-REM Change this to your needs.
-SET PATH="%PROGRAMFILES%\CMake 2.9\bin";%PATH%
+REM Load environment settings from env.bat
+CALL env.bat
 
 REM DON'T MODIFY BELOW THIS LINE
 
